@@ -1,44 +1,21 @@
-# KLIMB RUN — page 404 Webflow
+# KLIMB RUN
 
-Jeu responsive autonome, personnage pixel K corrigé sur mobile, six difficultés et décors progressifs. Le top 5 partagé est préparé, mais aucun service Supabase n’est connecté ou déployé dans cette livraison.
+## Intégration Webflow permanente
 
-## À intégrer dans Webflow
+Coller une seule fois dans un Code Embed :
 
-Copier **tout le contenu de `klimb-jeu-embed-webflow.html`** dans un élément Code Embed sur la page 404. Le conteneur doit occuper 100 % de la largeur disponible, sans hauteur fixe. CSS, JavaScript, police et sprites sont inclus. Utiliser une seule instance du jeu par page. Tester sur le site publié.
-
-Le fichier HTML fourni peut aussi être ouvert directement pour prévisualiser le jeu. Le classement en ligne nécessite un domaine HTTP(S) autorisé et sa configuration serveur.
-
-## À déposer dans GitHub
-
-Déposer le contenu de ce dossier à la racine du dépôt, y compris `.gitignore`. Ne pas ajouter de clés secrètes ni `node_modules`. Cette archive ne crée pas de dépôt et ne publie rien sur GitHub.
-
-- `klimb-jeu-embed-webflow.html` : version optimisée livrable, environ 44 Ko.
-- `build/klimb-embed.source.html` : source lisible à modifier.
-- `build/optimize.cjs` : génération et optimisation de l’embed.
-- `supabase/migrations/20261026000000_klimb_scores.sql` : base du classement.
-- `supabase/functions/klimb-scores/index.ts` : API du classement.
-- `supabase/config.toml` : configuration de la fonction publique.
-- `docs/INSTALLATION-CLASSEMENT.md` : installation, fonctionnement et limites.
-
-## Modifier et reconstruire
-
-Avec Node.js 22.12 ou supérieur :
-
-```sh
-npm install
-npm run build
+```html
+<script src="https://sholy-klimb.github.io/KLIMB-404/embed.js" defer></script>
 ```
 
-Conserver le `package-lock.json` créé par l’installation dans Git pour figer les dépendances transitives. Les versions directes sont déjà fixées dans `package.json`.
+Le script affiche le jeu dans une iframe et ajuste automatiquement sa hauteur. Tester sur le site Webflow publié. Le jeu est chargé depuis GitHub Pages : les mises à jour du dépôt apparaissent après le déploiement Pages et le rafraîchissement du visiteur, sans changer le bloc Webflow.
 
-Modifier le source lisible puis reconstruire. Le build recrée le HTML racine et vérifie la conversion sans perte du sprite. Il ne demande aucun compte ni secret. Ne pas modifier uniquement le HTML optimisé si la modification doit survivre au prochain build.
+## Modifier le jeu
 
-## Activer le top 5
+Modifier `build/klimb-embed.source.html`, exécuter `npm ci && npm run build`, puis committer le source, `klimb-jeu-embed-webflow.html` et `build/optimization.json`. Le fichier `index.html` charge automatiquement la version publiée de l’embed. GitHub Pages publie la branche main à la racine.
 
-Suivre `docs/INSTALLATION-CLASSEMENT.md`. Le développeur doit créer/configurer un projet Supabase, appliquer le SQL et déployer la fonction. Remplacer ensuite `data-score-api=""` dans le source par l’URL de la fonction, reconstruire et recoller l’embed dans Webflow. Aucune clé privée ne doit être placée dans l’embed.
+## Classement : état réel
 
-Le score est calculé par le jeu ; seuls les joueurs qualifiés peuvent saisir un pseudo. Le serveur revérifie la place lors de la soumission. Git héberge le code ; Supabase stocke les scores des visiteurs.
+Le panneau Top 5 est disponible avant et après une partie. Il reste masqué pendant le jeu et la pause. Les scores des visiteurs ne sont pas encore enregistrés : aucun backend n’est configuré. Le record personnel est conservé dans le navigateur lorsque son stockage est autorisé.
 
-## Vérification
-
-Le jeu a été vérifié dans Chrome sur sept tailles d’écran, ainsi que pour le saut, la pause, la reprise et la collision. Le parcours du classement a été vérifié avec un serveur simulé. La correction mobile supprime le passage du personnage par le tampon basse résolution du décor. La recette Supabase et les tests sur téléphones réels restent à effectuer après déploiement.
+GitHub Pages héberge des fichiers statiques et ne reçoit pas les scores anonymes. Le code Supabase fourni dans l’archive est conservé à titre de référence mais n’est ni déployé ni requis pour le jeu. Une solution de collecte et modération doit être choisie avant d’activer le classement partagé. Ne jamais intégrer de jeton GitHub privé dans le jeu.

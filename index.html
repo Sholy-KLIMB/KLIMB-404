@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KLIMB RUN</title><style>html,body{margin:0;background:transparent}body{padding:4px;box-sizing:border-box}#loading{font:14px Arial;padding:24px}</style></head><body><div id="loading" role="status">Chargement de KLIMB RUN…</div><script>
+(async()=>{
+try{
+const response=await fetch('./klimb-jeu-embed-webflow.html',{cache:'no-cache'});
+if(!response.ok)throw new Error('LOAD_FAILED');
+const template=document.createElement('template');template.innerHTML=await response.text();
+const scripts=Array.from(template.content.querySelectorAll('script'));
+scripts.forEach(script=>script.remove());
+document.getElementById('loading').remove();
+document.body.append(template.content);
+for(const old of scripts){const script=document.createElement('script');script.textContent=old.textContent;document.body.append(script)}
+let lastHeight=0;
+const report=()=>{const root=document.getElementById('klimb-run-embed');if(!root)return;const height=Math.ceil(root.getBoundingClientRect().height+12);if(height!==lastHeight){lastHeight=height;parent.postMessage({type:'klimb-run-resize',height},'*')}};
+new ResizeObserver(report).observe(document.getElementById('klimb-run-embed'));report();
+}catch(e){const status=document.getElementById('loading');if(status)status.textContent='Le jeu ne peut pas charger. Recharge la page pour réessayer.'}
+})();
+</script></body></html>
