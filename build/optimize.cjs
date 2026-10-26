@@ -15,7 +15,7 @@ for(let i=0;i<rgbaA.length;i+=4){if(rgbaA[i+3]!==rgbaB[i+3]||(rgbaA[i+3]&&(!rgba
 if(webp.length<png.length)js=js.replace('data:image/png;base64,'+png.toString('base64'),'data:image/webp;base64,'+webp.toString('base64'));
 const minJS=(await esbuild.transform(js,{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'})).code;
 const minCSS=(await esbuild.transform(css,{loader:'css',minify:true,target:['chrome100','safari15','firefox100'],legalComments:'none',charset:'utf8'})).code;
-let output=source.replace(/<!--[\s\S]*?-->/g,'').replace(/<style>[\s\S]*?<\/style>/,'<style>'+minCSS.trim()+'</style>').replace(/<script>[\s\S]*?<\/script>/,'<script>'+minJS.trim()+'</script>').trim();
+let output=source.replace(/<!--[\s\S]*?-->/g,'').replace(/<style>[\s\S]*?<\/style>/,()=>'<style>'+minCSS.trim()+'</style>').replace(/<script>[\s\S]*?<\/script>/,()=>'<script>'+minJS.trim()+'</script>').trim();
 fs.writeFileSync(path.join(__dirname,'../klimb-jeu-embed-webflow.html'),output);
 const before=Buffer.byteLength(source),after=Buffer.byteLength(output);
 const report={before,after,saved:before-after,reductionPercent:Number(((1-after/before)*100).toFixed(1)),spritesLossless:true};
