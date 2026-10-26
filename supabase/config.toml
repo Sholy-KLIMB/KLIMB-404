@@ -1,0 +1,4 @@
+project_id = "klimb-404"
+
+[functions.klimb-scores]
+verify_jwt = false

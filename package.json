@@ -1,0 +1,16 @@
+{
+  "name": "klimb-404",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jeu KLIMB RUN pour la page 404 Webflow",
+  "scripts": {
+    "build": "node build/optimize.cjs"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.1",
+    "sharp": "0.35.5"
+  }
+}
