@@ -1,0 +1,24 @@
+const {readFileSync}=require('node:fs');
+const vm=require('node:vm');
+const assert=require('node:assert/strict');
+const source=readFileSync('build/klimb-embed.source.html','utf8');
+const functionSource=name=>source.split('\n').find(line=>line.startsWith(`function ${name}(`)||line.startsWith(`async function ${name}(`));
+const handlers={};
+const context=vm.createContext({state:'over',replayRequiresClick:false,secretKeys:'',secretUsed:0,jumpBuffer:0,scoreAPI:'scores',runVersion:1,runRequest:Promise.resolve({token:'session'}),boardStatus:{},retryBoard:{},scoreForm:{},ui:{message:{},start:{addEventListener:(event,callback)=>handlers[event]=callback}},reset(){context.resets++;context.state='running';context.replayRequiresClick=false},resets:0,pause(){context.paused=true},syncBoard(){},showTop(){},scoreRequest:async()=>({qualifies:true,top:[]})});
+vm.runInContext(['jump','finishRankedRun','qualifyScore'].map(functionSource).join('\n'),context);
+vm.runInContext(source.match(/ui\.start\.addEventListener\('click',[\s\S]*?\);/)[0],context);
+(async()=>{
+ const finish=context.finishRankedRun(100,10);
+ context.jump();assert.equal(context.resets,0,'Waiting for qualification blocks restart');
+ await finish;
+ context.jump();assert.equal(context.resets,0,'Top 5 blocks jump restart');
+ handlers.click({detail:0});assert.equal(context.resets,0,'Keyboard click cannot restart');
+ handlers.click({detail:1});assert.equal(context.resets,1,'Pointer click restarts');
+ context.state='running';context.jump();assert.equal(context.jumpBuffer,.13,'Jump still works during play');
+ context.state='over';context.scoreRequest=async()=>({qualifies:false,top:[]});
+ await context.finishRankedRun(1,1);context.jump();assert.equal(context.resets,2,'Nonqualifying score allows restart');
+ context.state='over';context.scoreRequest=async()=>{throw Error('offline')};
+ await context.finishRankedRun(1,1);context.jump();assert.equal(context.resets,3,'Service failure allows restart');
+ context.state='over';context.scoreAPI='';await context.finishRankedRun(1,1);context.jump();assert.equal(context.resets,4,'Unranked mode allows restart');
+ console.log('Replay regression checks passed');
+})().catch(error=>{console.error(error);process.exitCode=1});
