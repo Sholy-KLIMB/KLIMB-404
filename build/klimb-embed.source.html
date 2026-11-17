@@ -200,7 +200,7 @@ function invasion(travel){
  for(let i=0;i<3;i++){const x=((i*340+travel*.1)%(w+180))-90,y=76+(i%2)*30;rect(x+9,y-9,30,9,ink);rect(x,y,48,9,ink);rect(x-9,y+9,66,9,ink);rect(x+9,y,6,6,paper);rect(x+30,y,6,6,paper);const phase=Math.floor(elapsed*.8+i)%3;if(phase===0){for(let by=y+24;by<ground;by+=12)rect(x+21,by,6,9,'#a5a116');rect(x+12,ground-18,24,18,paper);rect(x+18,ground-30,12,12,paper)}}
 }
 function boost(c){const x=c.x,y=c.y;rect(x-12,y-12,24,24,ink);rect(x-3,y-9,9,6,paper);rect(x-6,y-3,9,6,paper);rect(x,y+3,6,6,paper);rect(x-3,y+9,3,3,paper)}
-const christmas = new URLSearchParams(location.search).get('theme') === 'noel';
+const christmas = true;
 function winterPine(x, y, height, distant) {
  const green = distant ? '#9bb7ae' : '#56857b', snow = distant ? '#e3eeea' : '#fff9e0';
  rect(x-3,y-height*.35,9,height*.35,green);
