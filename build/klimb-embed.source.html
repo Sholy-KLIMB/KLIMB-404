@@ -202,7 +202,7 @@ function invasion(travel){
 function boost(c){const x=c.x,y=c.y;rect(x-12,y-12,24,24,ink);rect(x-3,y-9,9,6,paper);rect(x-6,y-3,9,6,paper);rect(x,y+3,6,6,paper);rect(x-3,y+9,3,3,paper)}
 const christmas = true;
 function winterPine(x, y, height, distant) {
- const green = distant ? '#9bb7ae' : '#56857b', snow = distant ? '#e3eeea' : '#fff9e0';
+ const green = distant ? '#e7d85a' : '#b7a523', snow = distant ? '#fff7ba' : '#fffbe1';
  rect(x-3,y-height*.35,9,height*.35,green);
  for(let tier=2;tier>=0;tier--){
   const top=y-height+tier*height*.19, depth=height*(.32+tier*.04);
@@ -214,33 +214,33 @@ function winterPine(x, y, height, distant) {
  }
 }
 function winterBall(x,y,r){
- const cap='#b89a58';
+ const cap='#b19629';
  rect(x-6,y-r-12,12,12,cap);rect(x-3,y-r-18,6,6,cap);
  for(let v=-r;v<r;v+=3){
   const half=3*Math.round(Math.sqrt(Math.max(0,r*r-(v+1.5)**2))/3);
   if(!half)continue;
-  rect(x-half,y+v,half*2,3,'#c87070');
-  if(v>=-6 && v<6)rect(x-half,y+v,half*2,3,'#f8ddb1');
+  rect(x-half,y+v,half*2,3,'#d9a126');
+  if(v>=-6 && v<6)rect(x-half,y+v,half*2,3,'#fff3a0');
  }
- for(let k=-2;k<=2;k++){rect(x+k*12-3,y-3,6,6,'#c87070');rect(x+k*12,y-6,3,12,'#c87070')}
- rect(x-r*.65,y-r*.56,6,12,'#ffe4cd');rect(x-r*.53,y-r*.66,9,6,'#ffe4cd');
+ for(let k=-2;k<=2;k++){rect(x+k*12-3,y-3,6,6,'#d9a126');rect(x+k*12,y-6,3,12,'#d9a126')}
+ rect(x-r*.65,y-r*.56,6,12,'#fffbd7');rect(x-r*.53,y-r*.66,9,6,'#fffbd7');
 }
 const cookieRows=['....BBBB....','...BBBBBB...','...BIIBIB...','...BBBBBB...','....BIIB....','BB.BBBBBB.BB','BBBBBBBBBBBB','.IBBBIBBBBI.','....BBBB....','...BBIBBB...','...BBBBBB...','..BBB..BBB..','..BIB..BIB..','.BBBB..BBBB.'];
 function winterCookie(x,y){
- cookieRows.forEach((row,j)=>{for(let i=0;i<row.length;i++)if(row[i]!=='.')rect(x+i*3,y+j*3,3,3,row[i]==='I'?'#fff5d8':'#b57c51')});
+ cookieRows.forEach((row,j)=>{for(let i=0;i<row.length;i++)if(row[i]!=='.')rect(x+i*3,y+j*3,3,3,row[i]==='I'?'#fff8d3':'#ac7e2e')});
 }
 function winterScene(visible,travel){
- rect(0,0,w,h,'#d8e8e5');
+ rect(0,0,w,h,'#fff200');
  visible(.08,190,100,(x,id)=>winterPine(x,ground-18,111+Math.abs(id%3)*21,true));
  visible(.18,175,110,(x,id)=>winterPine(x+24,ground,78+Math.abs(id%3)*18,false));
  visible(.29,330,100,(x,id)=>{const r=33+Math.abs(id%2)*9;winterBall(x+56,ground-r+6,r);winterCookie(x+161,ground-42)});
  const drift=reduced?0:elapsed;
  for(let i=0;i<Math.ceil(w/13);i++){
   const x=((i*79+drift*(6+i%5)-travel*.07)%w+w)%w;
-  rect(x,(i*47+drift*(16+i%13))%ground,3,3,'#ffffff');
+  rect(x,(i*47+drift*(16+i%13))%ground,3,3,'#fffef1');
  }
- rect(0,ground,w,h-ground,'#8ca9ac');rect(0,ground,w,9,'#fffaf0');
- visible(.8,48,48,x=>{rect(x,ground+6,21,6,'#fffaf0');rect(x+9,ground+12,6,6,'#c5d9db')});
+ rect(0,ground,w,h-ground,'#b5a63b');rect(0,ground,w,9,'#fffbe1');
+ visible(.8,48,48,x=>{rect(x,ground+6,21,6,'#fffbe1');rect(x+9,ground+12,6,6,'#e8d96e')});
 }
 
 function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rect(0,0,w,h,yellow);const travel=reduced?0:distance;
@@ -304,4 +304,3 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='r
 })();
 
 </script>
-
