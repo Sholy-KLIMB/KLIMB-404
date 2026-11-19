@@ -248,27 +248,36 @@ function snowFriend(x,base){
 function winterPixels(x,y,rows,size,colors){
  rows.forEach((row,j)=>{for(let i=0;i<row.length;i++)if(colors[row[i]])rect(x+i*size,y+j*size,size,size,colors[row[i]])});
 }
+function sceneryBlend(start,duration=3){const t=Math.max(0,Math.min(1,(elapsed-start)/duration));return t*t*(3-2*t)}
+function sceneryLayer(alpha,paint){if(alpha<=0)return;ctx.save();ctx.globalAlpha*=alpha;try{paint()}finally{ctx.restore()}}
 function santaRaid(visible,travel){
  const colors={g:'#b88828',w:'#fffbe1',f:'#f2ca80',b:'#90752c',s:'#cc9a32'};
  const rows=['.....wggg........','......gggg.......','.....wwwww.......','.....fbffw.......','.....wwwww.......','....ggwwwg.......','....ggggggww.....','..ssggbgbb..w...s','..sssssssssssssss','...sssssssssssss.','.....b......b....','...bbbbbbbbbbbbb.'];
- visible(.55,level===5?190:280,120,(x,id)=>{
+ const craft=(x,id)=>{
   const y=Math.max(9,ground-172-Math.abs(id%2)*27)+(reduced?0:Math.round(Math.sin(elapsed*2+id)*2)*3);
   winterPixels(x,y,rows,3,colors);
   const fall=reduced?21:((travel*.13+Math.abs(id)*27)%64);
   rect(x+9,y+34+fall,15,12,'#d6a032');rect(x+15,y+34+fall,3,12,'#ffef94');rect(x+6,y+34+fall,21,3,'#fbe378');
- });
+ };
+ visible(.55,280,120,craft);
+ sceneryLayer(sceneryBlend(75),()=>visible(.55,280,260,(x,id)=>craft(x+140,id+101)));
 }
 function winterScene(visible,travel){
  rect(0,0,w,h,'#fff200');
  visible(.08,190,100,(x,id)=>winterPine(x,ground-18,111+Math.abs(id%3)*21,true));
- if(level<2){
- visible(.18,175,110,(x,id)=>winterPine(x+24,ground,78+Math.abs(id%3)*18,false));
- visible(.29,330,100,(x,id)=>{const r=33+Math.abs(id%2)*9;winterBall(x+56,ground-r+6,r);winterCookie(x+161,ground-42)});
- }else{
- visible(.20,150,110,(x,id)=>{if(presentation?.show(id)!==false)gingerHouse(x,ground-6,id)});
- visible(.32,190,65,(x,id)=>{snowFriend(x+96,ground);if(id%2===0)winterCookie(x+145,ground-42)});
- if(level>=4&&presentation?.raid(elapsed)!==false)santaRaid(visible,travel);
- }
+ const village=sceneryBlend(30);
+ sceneryLayer(1-village,()=>{
+  visible(.18,175,110,(x,id)=>winterPine(x+24,ground,78+Math.abs(id%3)*18,false));
+  visible(.29,330,100,(x,id)=>{const r=33+Math.abs(id%2)*9;winterBall(x+56,ground-r+6,r);winterCookie(x+161,ground-42)});
+ });
+ sceneryLayer(village,()=>{
+  visible(.20,150,110,(x,id)=>{
+   if(presentation?.show(id)!==false)gingerHouse(x,ground,id);
+   if(id%2===0)snowFriend(x+99,ground);
+   else winterCookie(x+99,ground-42);
+  });
+ });
+ if(level>=4&&presentation?.raid(elapsed)!==false)sceneryLayer(sceneryBlend(60),()=>santaRaid(visible,travel));
  const drift=reduced?0:elapsed;
  for(let i=0;i<Math.ceil(w/13);i++){
   const x=((i*79+drift*(6+i%5)-travel*.07)%w+w)%w;
@@ -340,3 +349,4 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='r
 })();
 
 </script>
+
