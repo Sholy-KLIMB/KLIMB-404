@@ -264,7 +264,7 @@ function santaRaid(visible,travel){
 }
 function winterScene(visible,travel){
  rect(0,0,w,h,'#fff200');
- visible(.08,190,100,(x,id)=>winterPine(x,ground-18,111+Math.abs(id%3)*21,true));
+ visible(.08,190,100,(x,id)=>winterPine(x,ground,111+Math.abs(id%3)*21,true));
  const village=sceneryBlend(30);
  sceneryLayer(1-village,()=>{
   visible(.18,175,110,(x,id)=>winterPine(x+24,ground,78+Math.abs(id%3)*18,false));
@@ -349,4 +349,5 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='r
 })();
 
 </script>
+
 
