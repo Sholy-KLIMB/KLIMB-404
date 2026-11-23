@@ -337,7 +337,27 @@ function winterScene(visible,travel){
 }
 
 const soilAssets=[0,1,2,3].map(i=>{const im=new Image();im.src='./assets/terrain/'+i+'.png';return im});
-function drawSoil(travel){const depth=h-ground;const tile=w;const offset=(travel*.8)%tile;for(let x=-offset;x<w;x+=tile){if(soilAssets[0].complete&&soilAssets[0].naturalWidth)ctx.drawImage(soilAssets[0],x,ground+9,tile,depth-9);const poses=[[.20,.43,.085],[.62,.60,.085],[.83,.22,.085]];poses.forEach((p,i)=>{const im=soilAssets[i+1];if(im.complete&&im.naturalWidth){const width=w*p[2];ctx.drawImage(im,x+w*p[0],ground+depth*p[1],width,width*im.height/im.width)}})}}
+let soilCache=null;
+function drawSoil(travel){
+ const scale=canvas.width/w,top=Math.round((ground+9)*scale),height=canvas.height-top;
+ if(height<=0)return;
+ const key=[canvas.width,height,...soilAssets.map(im=>im.complete?im.naturalWidth:0)].join(':');
+ if(!soilCache||soilCache.key!==key){
+  const tile=document.createElement('canvas');tile.width=canvas.width;tile.height=height;
+  const paint=tile.getContext('2d');paint.fillStyle='#b5a63b';paint.fillRect(0,0,tile.width,height);
+  paint.imageSmoothingEnabled=true;paint.imageSmoothingQuality='high';
+  if(soilAssets[0].complete&&soilAssets[0].naturalWidth)paint.drawImage(soilAssets[0],0,0,tile.width,height);
+  const poses=[[.20,.43,.085],[.62,.60,.085],[.83,.22,.085]];
+  poses.forEach((p,i)=>{const im=soilAssets[i+1];if(im.complete&&im.naturalWidth){const width=Math.round(tile.width*p[2]);paint.drawImage(im,Math.round(tile.width*p[0]),Math.round(height*p[1]),width,Math.round(width*im.height/im.width))}});
+  soilCache={key,tile};
+ }
+ // Rasterize once at display resolution, then only translate by whole device pixels.
+ // Every tile shares one offset, so both details and joins stay stable while scrolling.
+ const tile=soilCache.tile,offset=Math.round(travel*.8*scale)%tile.width;
+ screen.save();screen.setTransform(1,0,0,1,0,0);screen.imageSmoothingEnabled=false;
+ for(let x=-offset;x<canvas.width;x+=tile.width)screen.drawImage(tile,x,top);
+ screen.restore();
+}
 function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rect(0,0,w,h,yellow);const travel=reduced?0:distance;
  // Stable world indices: an object's identity never changes when a loop wraps.
  // Biome boundaries enter on the right and travel left with each scenery layer.
@@ -358,7 +378,6 @@ function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rec
  rect(0,ground,w,h-ground,ink);rect(0,ground,w,3,paper);rect(0,ground+3,w,6,'#777777');
  const offset=travel%48;for(let i=-1;i<Math.ceil(w/48)+2;i++){const x=i*48-offset;rect(x,ground+3,6,3,ink);rect(x+9,ground+12,30,3,'#555555');rect(x+6,ground+15,3,12,'#555555');rect(x+9,ground+27,39,3,'#555555');rect(x+30,ground+30,3,15,'#555555');rect(x,ground+45,30,3,'#555555');rect(x+15,ground+18,6,3,'#999999')}
  }
- if(christmas)drawSoil(travel);
  if(state==='ready'){const strength=root.hasAttribute('data-launching')?Math.max(0,1-(performance.now()-arrivalLaunch)/450):1;ctx.save();ctx.globalAlpha=.65*strength;rect(0,0,w,ground,yellow);ctx.restore()}
  for(const p of platforms){crate(p.x,ground-p.height,p.width,15,false);rect(p.x,ground-p.height,p.width,3,yellow);for(let x=p.x+12;x<p.x+p.width;x+=24)rect(x,ground-p.height+9,9,3,paper)}
  for(const o of obstacles){if(o.type==='shell')shell(o);else if(o.type==='spike')spike(o);else crate(o.x,ground-o.height,o.width,o.height,o.moving)}
@@ -371,6 +390,7 @@ function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rec
  for(const d of dust){const t=1-d.t/.35;for(let i=0;i<3;i++)rect(d.x-i*9-t*15,d.y-6-i*3-t*12,Math.max(3,6-t*3),3,i%2?paper:'#777777')}
  if(christmas)presentation?.draw(sceneState(),rect);
  screen.clearRect(0,0,w,h);screen.drawImage(world,0,0,world.width,world.height,0,0,w,h);
+ if(christmas)drawSoil(travel);
  // Draw the original sprite once at display resolution: the scenery's low-res
  // buffer discarded fine sprite pixels, especially after mobile downscaling.
  if(img.complete&&img.naturalWidth){const scale=canvas.width/w,size=Math.round(player.size*scale),x=Math.round(px*scale),y=Math.round((py+footPadding[pose]*player.size/64)*scale);screen.save();screen.setTransform(1,0,0,1,0,0);screen.drawImage(img,(pose%4)*64,Math.floor(pose/4)*64,64,64,x,y,size,size);screen.restore()}
