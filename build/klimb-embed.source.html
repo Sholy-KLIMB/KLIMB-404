@@ -148,7 +148,7 @@ let w=900,h=350,ground=286,state='ready',last=0,elapsed=0,distance=0,speed=275,s
 const player={x:65,y:0,vy:0,size:77};
 const stages=['ÉCHAUFFEMENT','ON ACCÉLÈRE','PRENDS DE LA HAUTEUR','SANS TEMPS MORT','MODE KLIMB','INVASION'];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function resize(){const r=canvas.getBoundingClientRect();if(r.width<=0||r.height<=0)return;const previousW=w,previousGround=ground,previousX=player.x;const viewScale=Math.min(1.4,r.width/720,Math.max(.7,r.height/770));w=r.width/viewScale;h=r.height/viewScale;ground=h*.5+player.size/2;player.x=w*.5-player.size/2;const shift=player.x-previousX;obstacles.forEach(o=>o.x+=shift);platforms.forEach(p=>p.x+=shift);coins.forEach(c=>{c.x+=shift;c.y+=ground-previousGround});dust.forEach(d=>{d.x+=shift;d.y+=ground-previousGround});if(state==='running'&&(Math.abs(w-previousW)>1||Math.abs(ground-previousGround)>1))pause();const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);screen.setTransform(dpr*viewScale,0,0,dpr*viewScale,0,0);screen.imageSmoothingEnabled=false;world.width=Math.ceil(w/3);world.height=Math.ceil(h/3);ctx.setTransform(world.width/w,0,0,world.height/h,0,0);ctx.imageSmoothingEnabled=false;draw()}
+function resize(){const r=canvas.getBoundingClientRect();if(r.width<=0||r.height<=0)return;const previousW=w,previousGround=ground,previousX=player.x;const viewScale=Math.min(1.4,r.width/720,Math.max(.7,r.height/770));w=r.width/viewScale;h=r.height/viewScale;ground=h*.5+player.size/2;player.x=w*.5-player.size/2;const shift=player.x-previousX;obstacles.forEach(o=>o.x+=shift);platforms.forEach(p=>p.x+=shift);coins.forEach(c=>{c.x+=shift;c.y+=ground-previousGround});dust.forEach(d=>{d.x+=shift;d.y+=ground-previousGround});if(state==='running'&&(Math.abs(w-previousW)>1||Math.abs(ground-previousGround)>1))pause();const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);screen.setTransform(dpr*viewScale,0,0,dpr*viewScale,0,0);screen.imageSmoothingEnabled=false;world.width=Math.ceil(w/3);world.height=Math.ceil(h/3);ctx.setTransform(1/3,0,0,1/3,0,0);ctx.imageSmoothingEnabled=false;draw()}
 new ResizeObserver(resize).observe(canvas);
 function announce(t){ui.status.textContent=t}
 let secretKeys='',secretUsed=0;
@@ -345,7 +345,7 @@ function drawSoil(travel){
  if(!soilCache||soilCache.key!==key){
   const tile=document.createElement('canvas');tile.width=canvas.width;tile.height=height;
   const paint=tile.getContext('2d');paint.fillStyle='#b5a63b';paint.fillRect(0,0,tile.width,height);
-  paint.imageSmoothingEnabled=true;paint.imageSmoothingQuality='high';
+  paint.imageSmoothingEnabled=false;
   if(soilAssets[0].complete&&soilAssets[0].naturalWidth)paint.drawImage(soilAssets[0],0,0,tile.width,height);
   const poses=[[.20,.43,.085],[.62,.60,.085],[.83,.22,.085]];
   poses.forEach((p,i)=>{const im=soilAssets[i+1];if(im.complete&&im.naturalWidth){const width=Math.round(tile.width*p[2]);paint.drawImage(im,Math.round(tile.width*p[0]),Math.round(height*p[1]),width,Math.round(width*im.height/im.width))}});
@@ -357,6 +357,15 @@ function drawSoil(travel){
  screen.save();screen.setTransform(1,0,0,1,0,0);screen.imageSmoothingEnabled=false;
  for(let x=-offset;x<canvas.width;x+=tile.width)screen.drawImage(tile,x,top);
  screen.restore();
+}
+function drawWorldmark(){
+ const displayScale=canvas.width/w/Math.min(devicePixelRatio||1,2);
+ const size=Math.max(2,Math.floor(Math.min(230,Math.max(110,w*displayScale*.14))/displayScale/21));
+ const glyphs=['10010/10010/10010/11111/00010/00010/00010','01110/11011/11011/11011/11011/11011/01110'];
+ const left=Math.round((world.width-17*size)/2),top=Math.round(world.height*(w*displayScale<=600?.30:.25));
+ ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=.1;ctx.fillStyle=ink;
+ [0,1,0].forEach((g,index)=>glyphs[g].split('/').forEach((row,y)=>{for(let x=0;x<5;x++)if(row[x]==='1')ctx.fillRect(left+(index*6+x)*size,top+y*size,size,size)}));
+ ctx.restore();
 }
 function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rect(0,0,w,h,yellow);const travel=reduced?0:distance;
  // Stable world indices: an object's identity never changes when a loop wraps.
@@ -379,8 +388,8 @@ function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rec
  const offset=travel%48;for(let i=-1;i<Math.ceil(w/48)+2;i++){const x=i*48-offset;rect(x,ground+3,6,3,ink);rect(x+9,ground+12,30,3,'#555555');rect(x+6,ground+15,3,12,'#555555');rect(x+9,ground+27,39,3,'#555555');rect(x+30,ground+30,3,15,'#555555');rect(x,ground+45,30,3,'#555555');rect(x+15,ground+18,6,3,'#999999')}
  }
  if(state==='ready'){const strength=root.hasAttribute('data-launching')?Math.max(0,1-(performance.now()-arrivalLaunch)/450):1;ctx.save();ctx.globalAlpha=.65*strength;rect(0,0,w,ground,yellow);ctx.restore()}
- // The background number belongs to the scene, before every gameplay object.
- ctx.save();const displayScale=canvas.width/w/Math.min(devicePixelRatio||1,2);ctx.globalAlpha=.1;ctx.fillStyle=ink;ctx.font='800 condensed '+(Math.min(230,Math.max(110,w*displayScale*.14))/displayScale)+'px Hubot, Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('404',w/2,h*(w*displayScale<=600?.30:.25));ctx.restore();
+ // Pixel glyphs use the same integer grid as the scenery, behind gameplay.
+ drawWorldmark();
  for(const p of platforms){crate(p.x,ground-p.height,p.width,15,false);rect(p.x,ground-p.height,p.width,3,yellow);for(let x=p.x+12;x<p.x+p.width;x+=24)rect(x,ground-p.height+9,9,3,paper)}
  for(const o of obstacles){if(o.type==='shell')shell(o);else if(o.type==='spike')spike(o);else crate(o.x,ground-o.height,o.width,o.height,o.moving)}
  for(const c of coins){if(c.boost)boost(c);else collectible(c)}
