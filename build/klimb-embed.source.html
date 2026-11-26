@@ -98,59 +98,54 @@
 @media(max-height:500px) and (orientation:landscape){#klimb-run-embed{min-height:320px}#klimb-run-embed:is([data-state=ready],[data-state=over]){overflow-y:auto}#klimb-run-embed .panel,#klimb-run-embed[data-state=over] .panel{position:relative;left:5%;top:auto;width:48%;padding-top:110px;padding-bottom:130px}#klimb-run-embed .panel h2{font-size:42px}#klimb-run-embed .leaderboard,#klimb-run-embed[data-state=over] .leaderboard{top:110px;max-height:none}#klimb-run-embed .overlay{position:relative}#klimb-run-embed .bar{bottom:16px;padding:8px 14px}#klimb-run-embed[data-state=ready] .bar{display:none}#klimb-run-embed .levelbar{padding:10px 14px;gap:6px}#klimb-run-embed .scorebox{padding:10px}#klimb-run-embed .scorebox strong{font-size:28px}#klimb-run-embed .next{display:none}#klimb-run-embed[data-state=paused] .overlay{position:absolute}#klimb-run-embed[data-state=paused] .panel{padding:20px;position:absolute;left:50%;top:50%;width:70%}#klimb-run-embed[data-state=paused] .panel h2{font-size:40px}}
 
 
-/* Arrival crossroads, based on the approved 1920 x 1080 design. */
-#klimb-run-embed .arrival{position:absolute;inset:0;z-index:4;pointer-events:none;transition:opacity .45s ease,transform .45s ease;font-stretch:75%}
+/* Arrival: Figma 5364:14857 / 5364:16096. */
+#klimb-run-embed .arrival{position:absolute;inset:0;z-index:4;pointer-events:none;font-stretch:75%;transition:opacity .45s ease,transform .45s ease}
 #klimb-run-embed:not([data-state=ready]) .arrival{display:none}
 #klimb-run-embed[data-state=ready] :is(.overlay,.menu-brand,.bar,.leaderboard){display:none}
-#klimb-run-embed .arrival-brand{position:absolute;left:2.5%;top:4.44%;display:grid;gap:6px;font-size:clamp(18px,1.25cqi,24px);font-weight:900}
-#klimb-run-embed .arrival-brand small{font-size:clamp(10px,.73cqi,14px);font-weight:500}
-#klimb-run-embed .arrival-heading{position:absolute;left:15%;top:8.9%;width:70%;text-align:center}
-#klimb-run-embed .error-badge{display:inline-block;background:var(--ink);color:var(--yellow);border-radius:30px;padding:10px 18px;font-size:clamp(12px,.78cqi,15px);font-weight:700}
-#klimb-run-embed .arrival h1{font-size:clamp(36px,4.167cqi,80px);line-height:1.15;font-weight:900;margin:28px 0 20px;letter-spacing:-.025em}
-#klimb-run-embed .arrival-heading p{font-size:clamp(18px,1.25cqi,24px);margin:0}
-#klimb-run-embed .route-card{position:absolute;top:31.76%;width:29.167%;padding:clamp(24px,2.083cqi,40px);border-radius:12px;pointer-events:auto}
-#klimb-run-embed .route-site{left:10.4167%;min-height:24.64cqi;background:var(--paper);border:2px solid var(--ink);box-shadow:0 7px #544d1c;display:flex;flex-direction:column;align-items:flex-start}
-#klimb-run-embed .route-game{right:10.4167%;background:var(--ink);color:var(--paper);min-height:32.24cqi}
-#klimb-run-embed .route-card .eyebrow{font-size:clamp(11px,.73cqi,14px);font-weight:700;letter-spacing:.06em}
-#klimb-run-embed .route-site .eyebrow{color:#555548}
-#klimb-run-embed .route-game>.eyebrow{color:var(--yellow)}
-#klimb-run-embed .route-card h2{font-size:clamp(28px,2.5cqi,48px);font-weight:900;line-height:1.2;margin:24px 0}
-#klimb-run-embed .route-site p{font-size:clamp(16px,1.04cqi,20px);line-height:1.45;margin:0 0 16px}
-#klimb-run-embed .route-links{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:clamp(30px,3.125cqi,60px)}
-#klimb-run-embed .route-links a{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--ink);box-shadow:0 2px var(--ink);border-radius:3px;color:inherit;text-decoration:none;font-size:clamp(14px,.833cqi,16px)}
-#klimb-run-embed .route-links svg{width:16px;height:16px}
-#klimb-run-embed .route-site .site-home{width:auto;min-width:70%;margin-top:auto;font-size:clamp(23px,1.67cqi,32px);min-height:clamp(64px,4.58cqi,88px);padding:16px 24px}
-#klimb-run-embed .route-site a:hover{background:var(--yellow)}
-#klimb-run-embed .arrival-record-label{font-size:clamp(11px,.625cqi,12px);color:#c8c8bb;font-weight:700;letter-spacing:.04em}
-#klimb-run-embed .arrival-records{list-style:none;margin:0;padding:0;counter-reset:rank;min-height:15.1cqi}
-#klimb-run-embed .arrival-records li{counter-increment:rank;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:12px;align-items:center;padding:clamp(11px,.8cqi,16px) 0;border-bottom:1px solid #44443a;font-weight:800;font-size:clamp(17px,1.04cqi,20px)}
-#klimb-run-embed .arrival-records li:last-child{border-bottom:0}
+#klimb-run-embed .arrival-top{position:absolute;inset:4.444% 2.5% auto;display:flex;justify-content:space-between;align-items:start}
+#klimb-run-embed .arrival-brand{font-size:24px;font-weight:900;line-height:34px}
+#klimb-run-embed .arrival-brand small{display:block;font-size:13px;font-weight:500;line-height:18px;margin-top:4px}
+#klimb-run-embed .arrival-home{pointer-events:auto;display:flex;align-items:center;gap:10px;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:12px 20px;color:var(--ink);text-decoration:none;font-size:15px;font-weight:700;text-transform:uppercase;line-height:21px}
+#klimb-run-embed .arrival-home svg{width:20px;height:20px}
+#klimb-run-embed .arrival-heading{position:absolute;top:10.37%;left:50%;transform:translateX(-50%);width:60%;text-align:center}
+#klimb-run-embed .error-badge{display:inline-block;background:var(--ink);color:var(--yellow);padding:10px 16px;border-radius:999px;font-size:15px;line-height:21px;font-weight:700}
+#klimb-run-embed .arrival h1{font-size:clamp(40px,5.625cqi,108px);font-weight:900;line-height:.944444;letter-spacing:0;margin:22px 0;white-space:nowrap}
+#klimb-run-embed .arrival-heading p{font-size:clamp(16px,1.146cqi,22px);line-height:1.4;margin:0}
+#klimb-run-embed .arrival-play-row{position:absolute;top:58.889%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;white-space:nowrap;pointer-events:auto}
+#klimb-run-embed .arrival-play-row .primary{width:clamp(220px,17.708cqi,340px);height:93px;min-width:0;font-size:32px}
+#klimb-run-embed .arrival-play-row small{font-size:20px}
+#klimb-run-embed .arrival-play-row kbd{font-stretch:75%;font-size:17px;padding:14px 20px;min-height:52px;box-shadow:0 2px var(--ink)}
+#klimb-run-embed .arrival-board-toggle{position:absolute;right:0;top:50%;transform:translateY(-50%);width:clamp(64px,6.667cqi,128px);height:clamp(64px,6.667cqi,128px);border:0;border-radius:12px 0 0 12px;background:var(--ink);color:var(--paper);pointer-events:auto;display:grid;place-items:center;transition:opacity .2s}
+#klimb-run-embed .arrival-board-toggle svg{width:44px;height:44px}
+#klimb-run-embed .arrival-drawer{position:absolute;right:0;top:50%;transform:translate(100%,-50%);width:min(481px,25.052cqi);min-height:500px;padding:42px;background:var(--ink);color:var(--paper);border-radius:12px 0 0 12px;pointer-events:none;visibility:hidden;transition:transform .3s ease,visibility .3s;max-height:85%;overflow-y:auto}
+#klimb-run-embed .arrival[data-scores-open] .arrival-drawer{transform:translate(0,-50%);visibility:visible;pointer-events:auto}
+#klimb-run-embed .arrival[data-scores-open] .arrival-board-toggle{opacity:0;visibility:hidden;pointer-events:none}
+#klimb-run-embed .arrival-drawer>.eyebrow{font-size:14px;letter-spacing:0;font-weight:700;color:var(--yellow)}
+#klimb-run-embed .arrival-drawer h2{font-size:clamp(28px,2.5cqi,48px);line-height:1.4;font-weight:900;margin:16px 0}
+#klimb-run-embed .arrival-record-label{font-size:12px;letter-spacing:.04em}
+#klimb-run-embed .arrival-records{list-style:none;margin:0;padding:0;counter-reset:rank}
+#klimb-run-embed .arrival-records li{counter-increment:rank;display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #44443a;font-weight:800;font-size:20px}
+#klimb-run-embed .arrival-records li:last-child{border:0}
 #klimb-run-embed .arrival-records li:before{content:counter(rank,decimal-leading-zero);color:#c8c8bb}
 #klimb-run-embed .arrival-records span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#klimb-run-embed .arrival-records strong{font-size:clamp(18px,1.146cqi,22px);white-space:nowrap}
+#klimb-run-embed .arrival-records strong{font-size:22px;white-space:nowrap}
 #klimb-run-embed .arrival-records li:first-child strong{color:var(--yellow)}
-#klimb-run-embed .arrival-board-status{font-size:15px;color:#d8d8ca;margin:12px 0}
+#klimb-run-embed .arrival-board-status{font-size:15px;margin:12px 0}
 #klimb-run-embed .arrival-board-status:empty{display:none}
-#klimb-run-embed .arrival-play-row{display:flex;align-items:center;gap:18px;margin-top:30px}
-#klimb-run-embed .arrival-play-row .primary{flex:1;min-width:0;font-size:clamp(26px,1.67cqi,32px);min-height:clamp(64px,4.58cqi,88px)}
-#klimb-run-embed .arrival-play-row kbd{font-size:14px;color:var(--ink);padding:12px 16px;box-shadow:none;min-height:0}
-#klimb-run-embed .arrival-play-row small{color:#c8c8bb}
-#klimb-run-embed .crossroads-choice{position:absolute;left:50%;top:34.44%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;font-size:clamp(24px,1.77cqi,34px);font-weight:900}
-#klimb-run-embed .crossroads-choice b{display:grid;place-items:center;width:clamp(64px,5cqi,96px);height:clamp(64px,5cqi,96px);border:2px solid var(--ink);border-radius:50%;background:var(--paper);box-shadow:0 5px var(--ink)}
-#klimb-run-embed .crossroads-choice svg{width:24px;height:24px}
-#klimb-run-embed[data-launching] .arrival{opacity:0;transform:translateY(-12px);pointer-events:none}
+#klimb-run-embed .arrival-board-close{position:absolute;right:6px;top:6px;display:grid;place-items:center;width:32px;height:32px;border:0;background:none;color:var(--paper)}
+#klimb-run-embed .arrival-board-close svg{width:18px;height:18px}
+#klimb-run-embed[data-launching] .arrival{opacity:0;transform:translateY(-12px)}
 #klimb-run-embed[data-launching] .arrival *{pointer-events:none}
 #klimb-run-embed[data-state=running] :is(.hud,.levelbar,.bar,.speedbox,.pause-button){animation:reveal-hud .35s ease both}
 @keyframes reveal-hud{from{opacity:0}to{opacity:1}}
-@container(max-width:1100px){#klimb-run-embed .route-site{left:4%;width:37%}#klimb-run-embed .route-game{right:4%;width:37%}#klimb-run-embed .crossroads-choice{gap:8px}#klimb-run-embed .crossroads-choice svg{width:18px}#klimb-run-embed .arrival-play-row{gap:10px}#klimb-run-embed .arrival-play-row kbd{padding:10px}#klimb-run-embed .route-card{top:34%}#klimb-run-embed .crossroads-choice{top:38%}#klimb-run-embed .arrival h1{font-size:clamp(32px,4.167cqi,46px)}}
-@container(max-width:700px){#klimb-run-embed[data-state=ready]{overflow-y:auto}#klimb-run-embed[data-state=ready] .game:after{display:none}#klimb-run-embed .arrival{position:relative;display:flex;flex-direction:column;gap:24px;padding:24px 20px 40px;min-height:100%}#klimb-run-embed .arrival-brand,#klimb-run-embed .arrival-heading,#klimb-run-embed .route-card,#klimb-run-embed .crossroads-choice{position:static;left:auto;right:auto;top:auto;transform:none;width:100%}#klimb-run-embed .arrival-brand{gap:2px}#klimb-run-embed .arrival h1{font-size:38px;margin:18px 0}#klimb-run-embed .arrival-heading{margin:12px 0}#klimb-run-embed .route-card{padding:24px;min-height:0}#klimb-run-embed .route-card h2{font-size:32px;margin:18px 0}#klimb-run-embed .route-links{gap:8px;margin-bottom:28px}#klimb-run-embed .route-links a{padding:10px}#klimb-run-embed .route-site .site-home{width:100%}#klimb-run-embed .crossroads-choice{justify-content:center}#klimb-run-embed .crossroads-choice b{width:56px;height:56px}#klimb-run-embed .arrival-records{min-height:0}#klimb-run-embed .arrival-play-row kbd,#klimb-run-embed .arrival-play-row small{display:none}}
-@media(max-height:700px) and (min-width:701px){#klimb-run-embed[data-state=ready]{overflow-y:auto}#klimb-run-embed .arrival{min-height:780px}#klimb-run-embed .route-card{top:270px}#klimb-run-embed .crossroads-choice{top:290px}#klimb-run-embed .arrival-heading{top:60px}#klimb-run-embed .arrival h1{font-size:48px;margin:16px 0}#klimb-run-embed .arrival-heading p{font-size:20px}}
-@media(prefers-reduced-motion:reduce){#klimb-run-embed .arrival{transition:none}#klimb-run-embed[data-state=running] :is(.hud,.levelbar,.bar,.speedbox,.pause-button){animation:none}}
+@container(max-width:1100px){#klimb-run-embed .arrival-drawer{width:340px;padding:32px;min-height:440px}#klimb-run-embed .arrival-drawer h2{font-size:36px}#klimb-run-embed .arrival-play-row .primary{height:72px}#klimb-run-embed .arrival-heading{top:15%}}
+@container(max-width:600px){#klimb-run-embed[data-state=ready] .game:after{display:none}#klimb-run-embed .arrival-top{inset:20px 16px auto}#klimb-run-embed .arrival-brand{font-size:20px;line-height:24px}#klimb-run-embed .arrival-brand small{font-size:11px}#klimb-run-embed .arrival-home{font-size:12px;padding:9px 12px;gap:6px}#klimb-run-embed .arrival-heading{width:calc(100% - 32px);top:16%}#klimb-run-embed .arrival h1{font-size:clamp(30px,8.3cqi,50px);margin:18px 0}#klimb-run-embed .arrival-heading p{font-size:16px}#klimb-run-embed .arrival-heading p br{display:none}#klimb-run-embed .arrival-play-row{top:63%;width:calc(100% - 96px)}#klimb-run-embed .arrival-play-row .primary{width:100%;height:64px}#klimb-run-embed .arrival-play-row small,#klimb-run-embed .arrival-play-row kbd{display:none}#klimb-run-embed .arrival-drawer{width:min(340px,calc(100% - 24px));padding:32px 24px;min-height:0}}
+@media(prefers-reduced-motion:reduce){#klimb-run-embed .arrival,#klimb-run-embed .arrival-drawer,#klimb-run-embed .arrival-board-toggle{transition:none}#klimb-run-embed[data-state=running] :is(.hud,.levelbar,.bar,.speedbox,.pause-button){animation:none}}
 
 </style>
 <div id="klimb-run-embed" data-state="ready" data-score-api="https://klimb-run-scores.classy-rain-3427.chatgpt.site/api/scores" tabindex="0" role="region" aria-label="KLIMB Run : Espace pour sauter, T pour mettre en pause">
 <section class="game" aria-label="Parcours de KLIMB Run"><div class="playfield"><canvas data-kr="game" aria-label="Le K court dans un décor de Noël. Évite les obstacles noirs et attrape les jetons.">Ton navigateur ne prend pas en charge ce jeu.</canvas></div></section>
-<section class="arrival" aria-label="Page introuvable"><div class="arrival-brand">KLIMB RUN<small>ÉDITION HIVER</small></div><header class="arrival-heading"><span class="error-badge">ERREUR 404</span><h1>CETTE PAGE A PRIS LA TANGENTE.</h1><p>Deux chemins s’offrent à toi. Choisis le tien.</p></header><section class="route-card route-site" aria-labelledby="route-site-title"><span class="eyebrow">CHEMIN 1 · TU CHERCHAIS QUELQUE CHOSE</span><h2 id="route-site-title">Retourne sur le site</h2><p>Accueil, projets, expertises, contact : tout est encore là. Seule cette adresse a changé.</p><nav class="route-links" aria-label="Retrouver une page"><a href="https://www.goklimb.com/fr/work" target="_top">Projets<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.5"/></svg></a><a href="https://www.goklimb.com/our-story" target="_top">Expertises<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.5"/></svg></a><a href="https://www.goklimb.com/fr/contact" target="_top">Contact<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.5"/></svg></a></nav><a class="site-home" href="https://www.goklimb.com/fr" target="_top">Retour à l’accueil</a></section><div class="crossroads-choice" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="2.5"/></svg><b>OU</b><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.5"/></svg></div><section class="route-card route-game" aria-labelledby="route-game-title"><span class="eyebrow">CHEMIN 2 · TU AS 2 MINUTES</span><h2 id="route-game-title">Joue à KLIMB RUN</h2><div class="arrival-record-label">RECORDS À BATTRE</div><ol class="arrival-records" data-kr="arrival-records" aria-label="Top 5 mondial"></ol><p class="arrival-board-status" data-kr="arrival-board-status" role="status">Chargement du classement…</p><div class="arrival-play-row"><button class="primary" data-kr="arrival-play">Jouer</button><small>ou</small><kbd>ESPACE</kbd></div></section></section>
+<section class="arrival" aria-label="Page introuvable"><div class="arrival-top"><div class="arrival-brand">KLIMB RUN<small>ÉDITION HIVER</small></div><a class="arrival-home" href="https://www.goklimb.com/fr" target="_top"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="2.5"/></svg>Retour à l’accueil</a></div><header class="arrival-heading"><span class="error-badge">ERREUR 404</span><h1>PAGE INTROUVABLE.<br>PARTIE TROUVÉE.</h1><p>Le lien que tu as suivi n’existe plus. En attendant, le KLYMBY est chaud :<br>Saute les obstacles, attrape les jetons, entre dans la légende.</p></header><div class="arrival-play-row"><button class="primary" data-kr="arrival-play">Jouer</button><small>ou appuie sur</small><kbd>ESPACE</kbd></div><button class="arrival-board-toggle" data-kr="arrival-board-toggle" aria-label="Afficher le Top 5 mondial" aria-expanded="false" aria-controls="arrival-scores"><svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M5 39V21h10v18M17 39V7h10v32M29 39V15h10v24M3 39h38" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg></button><aside class="arrival-drawer" id="arrival-scores" aria-labelledby="arrival-scores-title" inert><button class="arrival-board-close" data-kr="arrival-board-close" aria-label="Fermer le classement"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" stroke="currentColor" stroke-width="2"/></svg></button><span class="eyebrow">CHEMIN 2 · TU AS 2 MINUTES</span><h2 id="arrival-scores-title">Joue à KLIMB RUN</h2><div class="arrival-record-label">RECORDS À BATTRE</div><ol class="arrival-records" data-kr="arrival-records" aria-label="Top 5 mondial"></ol><p class="arrival-board-status" data-kr="arrival-board-status" role="status">Chargement du classement…</p></aside></section>
 <div class="menu-brand"><strong>KLIMB RUN</strong><span>ÉDITION HIVER</span></div>
 <div class="levelbar"><span class="eyebrow">KLIMB RUN</span><span data-kr="level">01 / FORÊT DE NOËL</span><div class="progress" aria-hidden="true"><span data-kr="progress"></span></div><span class="next">Prochain palier dans <b data-kr="next">15 s</b></span></div>
 <div class="hud"><div class="scorebox"><span class="eyebrow">Score</span><strong data-kr="score">00000</strong><small>POINTS</small></div><div class="record"><span class="eyebrow">Ton record</span><strong data-kr="best">00000</strong></div></div>
@@ -183,9 +178,15 @@ let presentation;
 function sceneState(){return {w,ground,elapsed,distance,level,reduced}}
 let arrivalLaunch=0;
 function startArrival(){if(state!=='ready'||root.hasAttribute('data-launching'))return;arrivalLaunch=performance.now();root.setAttribute('data-launching','');root.querySelector('[data-kr=arrival-play]').disabled=true;setTimeout(()=>{root.removeAttribute('data-launching');root.querySelector('[data-kr=arrival-play]').disabled=false;reset()},reduced?0:450)}
+const arrival=root.querySelector('.arrival'),arrivalDrawer=root.querySelector('.arrival-drawer'),arrivalToggle=root.querySelector('[data-kr=arrival-board-toggle]'),arrivalClose=root.querySelector('[data-kr=arrival-board-close]');
+function setArrivalScores(open,restoreFocus=false){arrival.toggleAttribute('data-scores-open',open);arrivalDrawer.inert=!open;arrivalToggle.setAttribute('aria-expanded',String(open));if(open)arrivalClose.focus({preventScroll:true});else if(restoreFocus)arrivalToggle.focus({preventScroll:true})}
+arrivalToggle.addEventListener('click',()=>setArrivalScores(true));
+arrivalClose.addEventListener('click',()=>setArrivalScores(false,true));
+root.addEventListener('pointerdown',e=>{if(arrival.hasAttribute('data-scores-open')&&!arrivalDrawer.contains(e.target)&&!arrivalToggle.contains(e.target))setArrivalScores(false)});
+root.addEventListener('keydown',e=>{if(state==='ready'&&e.key==='Escape'&&arrival.hasAttribute('data-scores-open')){e.preventDefault();e.stopImmediatePropagation();setArrivalScores(false,true)}});
 root.querySelector('[data-kr=arrival-play]').addEventListener('click',startArrival);
 document.addEventListener('keydown',e=>{if(state==='ready'&&e.code==='Space'&&!e.repeat&&!e.defaultPrevented&&!e.target.closest('a,button,input,textarea,select')){e.preventDefault();startArrival()}});
-function reset(){secretKeys='';secretUsed=0;beginRankedRun();root.focus({preventScroll:true});elapsed=distance=level=cleared=jumpBuffer=bonus=patternNumber=0;lastRhythm=-1;coins=[];platforms=[];boostTime=0;supported=false;held=false;speed=275;spawn=1.65;obstacles=[];dust=[];player.y=player.vy=0;presentation=window.createRunPresentation?.();bonus=presentation?.start(Date.now())||0;ui.score.textContent=String(bonus).padStart(5,'0');updateHUD();state='running';syncBoard(false);ui.overlay.hidden=true;ui.pause.disabled=false;ui.pause.textContent='Pause';updateMenu();announce('Partie lancée. Espace, flèche haut ou touche le décor pour sauter. Maintiens pour un saut haut.')}
+function reset(){setArrivalScores(false);secretKeys='';secretUsed=0;beginRankedRun();root.focus({preventScroll:true});elapsed=distance=level=cleared=jumpBuffer=bonus=patternNumber=0;lastRhythm=-1;coins=[];platforms=[];boostTime=0;supported=false;held=false;speed=275;spawn=1.65;obstacles=[];dust=[];player.y=player.vy=0;presentation=window.createRunPresentation?.();bonus=presentation?.start(Date.now())||0;ui.score.textContent=String(bonus).padStart(5,'0');updateHUD();state='running';syncBoard(false);ui.overlay.hidden=true;ui.pause.disabled=false;ui.pause.textContent='Pause';updateMenu();announce('Partie lancée. Espace, flèche haut ou touche le décor pour sauter. Maintiens pour un saut haut.')}
 function jump(){if(state==='over'&&replayRequiresClick)return;secretKeys='';if(state==='ready'){startArrival();return}if(state==='over'){reset();return}if(state==='running'){jumpBuffer=.13;if(typeof presentation!=='undefined'&&presentation)bonus+=presentation.input(sceneState(),performance.now(),player.x+player.size/2)}}
 function launch(){player.vy=650;jumpBuffer=0;dust.push({x:player.x+30,y:ground,t:.35})}
 function release(){held=false;if(state==='running'&&player.vy>310)player.vy=310}
@@ -340,7 +341,6 @@ function santaRaid(visible,travel){
  sceneryLayer(sceneryBlend(75),()=>visible(.55,280,260,(x,id)=>craft(x+140,id+101)));
 }
 function winterScene(visible,travel){
- rect(0,0,w,h,'#fff200');
  visible(.08,190,100,(x,id)=>winterPine(x,ground,111+Math.abs(id%3)*21,true));
  const village=sceneryBlend(30);
  sceneryLayer(1-village,()=>{
@@ -396,6 +396,8 @@ function drawWorldmark(){
  ctx.restore();
 }
 function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rect(0,0,w,h,yellow);const travel=reduced?0:distance;
+ // The pixel 404 is the furthest layer, immediately above the sky.
+ if(state!=='ready')drawWorldmark();
  // Stable world indices: an object's identity never changes when a loop wraps.
  // Biome boundaries enter on the right and travel left with each scenery layer.
  const mod=(n,m)=>((n%m)+m)%m;
@@ -416,8 +418,6 @@ function draw(){if(!world.width||!world.height)return;ctx.clearRect(0,0,w,h);rec
  const offset=travel%48;for(let i=-1;i<Math.ceil(w/48)+2;i++){const x=i*48-offset;rect(x,ground+3,6,3,ink);rect(x+9,ground+12,30,3,'#555555');rect(x+6,ground+15,3,12,'#555555');rect(x+9,ground+27,39,3,'#555555');rect(x+30,ground+30,3,15,'#555555');rect(x,ground+45,30,3,'#555555');rect(x+15,ground+18,6,3,'#999999')}
  }
  if(state==='ready'){const strength=root.hasAttribute('data-launching')?Math.max(0,1-(performance.now()-arrivalLaunch)/450):1;ctx.save();ctx.globalAlpha=.65*strength;rect(0,0,w,ground,yellow);ctx.restore()}
- // Pixel glyphs use the same integer grid as the scenery, behind gameplay.
- if(state!=='ready')drawWorldmark();
  for(const p of platforms){crate(p.x,ground-p.height,p.width,15,false);rect(p.x,ground-p.height,p.width,3,yellow);for(let x=p.x+12;x<p.x+p.width;x+=24)rect(x,ground-p.height+9,9,3,paper)}
  for(const o of obstacles){if(o.type==='shell')shell(o);else if(o.type==='spike')spike(o);else crate(o.x,ground-o.height,o.width,o.height,o.moving)}
  for(const c of coins){if(c.boost)boost(c);else collectible(c)}
